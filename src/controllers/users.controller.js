@@ -31,18 +31,18 @@ const clerkWebhook = async (req, res) => {
         //Switch Cases for deffernent Events
 
         switch (type) {
-            case 'user_created':{  
+            case 'user.created':{  
                 await User.create(userData);
                 break;
             }
 
-            case 'user_updated':{  
+            case 'user.updated':{  
                 await User.findByIdAndUpdate(body.id ,userData);
                 break;
             }
 
-            case 'user_deleted':{  
-                await User.findByIdAndDelete(userData)
+            case 'user.deleted':{  
+                await User.findByIdAndDelete(body.id)
                 break;
             }
             default:
