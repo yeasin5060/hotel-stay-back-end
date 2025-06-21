@@ -2,6 +2,7 @@ import express from "express";
 import cors from 'cors'
 import 'dotenv/config'
 import { clerkMiddleware } from '@clerk/express'
+import clerkWebhook from './controllers/users.controller.js'
 
 const app = express()
 
@@ -15,10 +16,8 @@ app.use(cors({
 
 app.use(clerkMiddleware());
 
-    //import all route here
-import userRoute from './routes/user.route.js'
-
-app.use("/api/v1/clerk" ,userRoute);
+    //API to listen to clerk webhook
+app.use("/api/v1/clerk" , clerkWebhook);
 
 app.get('/' , (req , res) => res.send('API Is Working'))
 
