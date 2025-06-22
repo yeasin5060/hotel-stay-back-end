@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors'
 import 'dotenv/config'
-import { clerkWebhook } from "./controllers/users.controller.js";
+import { clerkWebhook } from "./controllers/clerkWebhook.controller.js";
 
 const app = express()
 
