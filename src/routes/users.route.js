@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { protect } from "../middlewares/auth.middlewares.js";
-import { getUserData } from "../controllers/users.controller.js";
+import { getUserData, storeRecentSearchedCities } from "../controllers/users.controller.js";
 
 const router = Router();
 
 router.route('/' , protect).get(getUserData);
+router.route('./store-recent-search').post(storeRecentSearchedCities);
 
 export default router
