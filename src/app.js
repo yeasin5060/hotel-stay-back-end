@@ -18,4 +18,9 @@ app.use("/api/v1/clerk" , clerkWebhook);
 
 app.get('/' , (_,res) => res.send('API IS WORKING'))
 
+//import all route here
+import userRoute from './routes/users.route.js'
+
+app.use('/api/user' , userRoute);
+
 export {app}
