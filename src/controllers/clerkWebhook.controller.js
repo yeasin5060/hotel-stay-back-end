@@ -53,7 +53,6 @@ const clerkWebhook = async (req, res) => {
     } catch (error) {
         console.log('webhook error',error.message );
         res.json({success : false , message : error.message})
-
     }
 }
 

@@ -1,6 +1,6 @@
 import express from "express";
-import cors from 'cors'
-import 'dotenv/config'
+import cors from 'cors';
+import 'dotenv/config';
 import { clerkWebhook } from "./controllers/clerkWebhook.controller.js";
 
 const app = express()
@@ -16,11 +16,13 @@ app.use(cors({
     //API to listen to clerk webhook
 app.use("/api/v1/clerk" , clerkWebhook);
 
-app.get('/' , (_,res) => res.send('API IS WORKING'))
+app.get('/' , (_,res) => res.send('API IS WORKING'));
 
 //import all route here
-import userRoute from './routes/users.route.js'
+import userRoute from './routes/users.route.js';
+import hotelRoute from './routes/hotel.route.js';
 
 app.use('/api/user' , userRoute);
+app.use('/api/hotel/register' , hotelRoute);
 
 export {app}
