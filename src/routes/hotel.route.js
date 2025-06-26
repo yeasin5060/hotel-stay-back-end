@@ -4,6 +4,6 @@ import { registerHotel } from "../controllers/hotel.controller.js";
 
 const router = Router();
 
-router.route('/' , protect).post(registerHotel)
+router.route('/').post(protect,registerHotel)
 
 export default router

@@ -21,8 +21,10 @@ app.get('/' , (_,res) => res.send('API IS WORKING'));
 //import all route here
 import userRoute from './routes/users.route.js';
 import hotelRoute from './routes/hotel.route.js';
+import roomRoute from './routes/room.route.js';
 
 app.use('/api/user' , userRoute);
 app.use('/api/hotel/register' , hotelRoute);
+app.use('/api/rooms/create' , roomRoute);
 
 export {app}

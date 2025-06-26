@@ -4,7 +4,7 @@ import { getUserData, storeRecentSearchedCities } from "../controllers/users.con
 
 const router = Router();
 
-router.route('/' , protect).get(getUserData);
+router.route('/').get(protect,getUserData);
 router.route('./store-recent-search').post(storeRecentSearchedCities);
 
 export default router
