@@ -25,6 +25,6 @@ import roomRoute from './routes/room.route.js';
 
 app.use('/api/user' , userRoute);
 app.use('/api/hotel/register' , hotelRoute);
-app.use('/api/rooms/create' , roomRoute);
+app.use('/api/rooms/' , roomRoute);
 
 export {app}
