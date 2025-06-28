@@ -1,4 +1,5 @@
 import { Booking } from "../models/booking.model.js";
+import { Hotel } from "../models/hotel.model.js";
 import { Room } from "../models/room.model.js";
 
 // function to check availability of room
@@ -89,11 +90,31 @@ const getUserBokkings = async (req , res) => {
         res.json({success : true , message : 'get user booking successfully' , bookings});
     } catch (error) {
         console.log('get user booking error' , error.message);
-        res.json({success : true , message : 'get user booking error'});
+        res.json({success :false, message : 'get user booking error'});
+    }
+}
+
+const getHotelBooking = async (req , res) => {
+    try {
+        const hotel = await Hotel.findOne({owner : req.auth.userId});
+        if(!hotel){
+            return res.json({success : false , message : 'No Hotel Found'});
+        }
+        const booking = await Booking.find({hotel : hotel._id}).populate('room hotel user').sort({createdAt : -1});
+            // total booking
+        const totalBooking = booking.length;
+            // total revenue
+        const totalRevenue = booking.reduce(( acc , booking)=> acc + booking.totalPrice , 0);
+
+        res.json({success : true , message : 'get hotel booking Successfully', dashboardData : { totalBooking , totalRevenue , booking} });
+    } catch (error) {
+        console.log('get hotel booking error' , error.message);
+         res.json({success : false , message : 'get hotel booking error'});
     }
 }
 export {
     checkAvailabilityAPI,
     createBooking, 
-    getUserBokkings
+    getUserBokkings,
+    getHotelBooking
 }
