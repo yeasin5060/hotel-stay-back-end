@@ -77,7 +77,23 @@ const createBooking = async (req , res) => {
         res.json({success : false, message :'Failed to create booking'});
     }
 }
+
+
+// API to get all booking for a user
+// Get / api/bokking/ user
+
+const getUserBokkings = async (req , res) => {
+    try {
+        const user = req.user._id;
+        const bookings = await Booking.find({user}).populate('room hotel').sort({createdAt : -1});
+        res.json({success : true , message : 'get user booking successfully' , bookings});
+    } catch (error) {
+        console.log('get user booking error' , error.message);
+        res.json({success : true , message : 'get user booking error'});
+    }
+}
 export {
     checkAvailabilityAPI,
-    createBooking
+    createBooking, 
+    getUserBokkings
 }
