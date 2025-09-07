@@ -5,7 +5,7 @@ import { createRoom, getOwnerRoom, getRoom, toggleRoomAvailability } from "../co
 
 const router = Router()
 
-router.route('/create').post(upload.array("images" , 4) , protect , createRoom)
+router.route('/create').post(upload.array("images" , 4),protect , createRoom)
 router.route('/get').get(getRoom);
 router.route('/owner').get(protect , getOwnerRoom);
 router.route('/togol-availability').post(protect , toggleRoomAvailability)

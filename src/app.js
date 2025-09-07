@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors';
 import 'dotenv/config';
-import { clerkWebhook } from "./controllers/clerkWebhook.controller.js";
+import { clerkMiddleware } from '@clerk/express'
 
 const app = express()
 
@@ -13,8 +13,12 @@ app.use(cors({
     origin : "*"
 }));
 
+app.use(clerkMiddleware());
+
     //API to listen to clerk webhook
-app.use("/api/v1/clerk" , clerkWebhook);
+import { clerkWebhook } from "./controllers/clerkWebhook.controller.js";
+
+app.use("/api/clerk" , clerkWebhook);
 
 app.get('/' , (_,res) => res.send('API IS WORKING'));
 
@@ -26,7 +30,7 @@ import bookingRoute from './routes/booking.route.js'
 
 app.use('/api/user' , userRoute);
 app.use('/api/hotel/register' , hotelRoute);
-app.use('/api/rooms/' , roomRoute);
-app.use('/api/booking/' , bookingRoute);
+app.use('/api/rooms' , roomRoute);
+app.use('/api/booking' , bookingRoute);
 
 export {app}

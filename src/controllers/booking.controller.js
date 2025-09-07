@@ -1,6 +1,7 @@
 import { Booking } from "../models/booking.model.js";
 import { Hotel } from "../models/hotel.model.js";
 import { Room } from "../models/room.model.js";
+import transporter from "../utis/nodeMailer.js";
 
 // function to check availability of room
 
@@ -70,6 +71,28 @@ const createBooking = async (req , res) => {
             checkOutDate,
             totalPrice
         });
+
+        const mailOptions = {
+            from : process.env.SENDER_EMAIL,
+            to : req.user.email,
+            subject : 'Hotel Booking Details',
+            html : `
+                <h2>Hotel Booking Details</h2>
+                <p>Dear ${req.user.username}</p>
+                <p>Thank you for your booking! Hear your details:</p>
+                <ul>
+                    <li><strong>Booking ID :</strong> ${booking._id}</li>
+                    <li><strong>Hotel Name : </strong>${roomData.hotel.name}</li>
+                    <li><strong>Location :</strong>${roomData.hotel.address}</li>
+                    <li><strong>Date :</strong>${booking.checkInDate.toDateString()}</li>
+                    <li><strong>Booking Amount</strong>${ process.env.CURRENCY || '$'} ${booking.totalPrice} /ningt</li>
+                </ul>
+                <p>We look forward to welcoming you!</p>
+                <p>If you need to make any changes. fel free to contact us.</p>
+            `
+        }
+
+        await transporter.sendMail(mailOptions)
 
         res.json({success : true , message : 'Booking create Successfully' , booking});
 

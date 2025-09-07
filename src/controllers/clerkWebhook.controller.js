@@ -10,21 +10,22 @@ const clerkWebhook = async (req, res) => {
 
         //Getting Hearders
         const headers = {
-            'svix_id' : req.headers['svix_id'],
-            'svix_timestamp' : req.headers['svix_timestamp'],
-            'svix_signature' : req.headers['svix_signature']
+            'svix-id' : req.headers['svix-id'],
+            'svix-timestamp' : req.headers['svix-timestamp'],
+            'svix-signature' : req.headers['svix-signature']
         };
-
+        console.log(headers);
+        
         // Verifying Headers
         await whook.verify(JSON.stringify(req.body), headers);
 
         //Getting Data from request body
-        const {body , type} = req.body
+        const {body , type} = req.body;
 
         const userData = {
             _id : body.id,
             email : body.email_addresses[0].email_address,
-            username : body.first_name + " " + body.last_name,
+            username: `${body.first_name} ${body.last_name}`,
             image : body.image_url
         }
 

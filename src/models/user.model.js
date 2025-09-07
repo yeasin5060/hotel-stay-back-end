@@ -1,11 +1,6 @@
 import mongoose , {Schema} from "mongoose";
 
 const userSchema = new Schema( {
-        id : {
-            type : String,
-            required : true,
-            trim : true
-        },
         userName : {
             type : String,
             required : [true , "username is required"],
@@ -29,7 +24,6 @@ const userSchema = new Schema( {
         },
         recentSearchedCities : [{
             type : String,
-            required : true
         }],
     },
     {
